@@ -1,0 +1,70 @@
+﻿@model AlbumListeModelView
+
+<h1 class="mt-3 text-center"> @Model.Album.Ad Albüm Detayları</h1>
+<hr />
+<div class="row container form-container">
+	<div class="col-md-6">
+		<ul class="list-group">
+			<li class="list-group-item d-flex justify-content-between align-items-start">
+				<div class="ms-2 me-auto">
+					<div class="fw-bold">Ad</div>
+					@Model.Album.Ad
+				</div>
+			</li>
+			<li class="list-group-item d-flex justify-content-between align-items-start">
+				<div class="ms-2 me-auto">
+					<div class="fw-bold">Çıkış Tarihi</div>
+					@Convert.ToDateTime(Model.Album.CikisTarihi).ToShortDateString()
+				</div>
+			</li>
+			<li class="list-group-item d-flex justify-content-between align-items-start">
+				<div class="ms-2 me-auto">
+					<div class="fw-bold">Sanatçı</div>
+					@Model.Album.Sanatci
+				</div>
+			</li>
+			<li class="list-group-item d-flex justify-content-between align-items-start">
+				<div class="ms-2 me-auto">
+					<div class="fw-bold">Fiyat</div>
+					@Model.Album.Fiyat
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="col-md-6">
+		<ul class="list-group">
+			<li class="list-group-item d-flex justify-content-between align-items-start">
+				<div class="ms-2 me-auto">
+					<div class="fw-bold">İndirim Oranı</div>
+					@Model.Album.IndirimOrani
+				</div>
+			</li>
+			<li class="list-group-item d-flex justify-content-between align-items-start">
+				<div class="ms-2 me-auto">
+					<div class="fw-bold">Satış Devam Mı?</div>
+					@Model.Album.SatisDevamMi
+				</div>
+			</li>
+			<li class="list-group-item d-flex justify-content-between align-items-start">
+				<div class="ms-2 me-auto">
+					<div class="fw-bold">Kayıt Tarihi</div>
+					@Convert.ToDateTime(Model.Album.KayitTarihi).ToShortDateString()
+				</div>
+			</li>
+			<li class="list-group-item d-flex justify-content-between align-items-start">
+				<div class="ms-2 me-auto">
+					<div class="fw-bold">Güncelleme Tarihi</div>
+					@Convert.ToDateTime(Model.Album.GuncellemeTarihi).ToShortDateString()
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+	<div class="mt-3 d-flex justify-content-between">
+		@Html.ActionLink("Güncelle", "AlbumEkleDuzenle", new {  id = Model.Album.Id  }, new{@class="btn btn-warning"})
+
+		<a asp-action="Liste" class="btn btn-secondary">Listeye Dön</a>
+	</div>
+</div>
+
+

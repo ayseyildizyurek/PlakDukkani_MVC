@@ -1,0 +1,79 @@
+﻿@model AlbumListeModelView
+
+<h1 class="mt-3 text-center"> Yeni Album Ekle</h1>
+<hr />
+
+<div class="container form-container">
+	<form asp-action="AlbumEkleDuzenle">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<div class="row">
+
+			<div class="col">
+				<div class="form-group">
+					<label asp-for="Album.Ad" class="control-label bold-label"></label>
+					<input asp-for="Album.Ad" class="form-control" placeholder="Ad" />
+					<span asp-validation-for="Album.Ad" class="text-danger"></span>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label asp-for="Album.Sanatci" class="control-label bold-label"></label>
+					<input asp-for="Album.Sanatci" class="form-control" placeholder="Sanatçı" />
+					<span asp-validation-for="Album.Sanatci" class="text-danger"></span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="form-group">
+					<label asp-for="Album.CikisTarihi" class="control-label bold-label"></label>
+					<input asp-for="Album.CikisTarihi" class="form-control" placeholder="Çıkış Tarihi" />
+					<span asp-validation-for="Album.CikisTarihi" class="text-danger"></span>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label asp-for="Album.Fiyat" class="control-label bold-label"></label>
+					<input asp-for="Album.Fiyat" class="form-control" placeholder="Fiyat" />
+					<span asp-validation-for="Album.Fiyat" class="text-danger"></span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="form-group">
+					<label asp-for="Album.IndirimOrani" class="control-label bold-label"></label>
+					<input asp-for="Album.IndirimOrani" class="form-control" placeholder="İndirim Oranı" />
+					<span asp-validation-for="Album.IndirimOrani" class="text-danger"></span>
+				</div>
+			</div>
+			<div class="col mt-4">
+				<div class="form-group form-check">
+					<input class="form-check-input" asp-for="Album.SatisDevamMi" />
+					<label class="form-check-label bold-label" asp-for="Album.SatisDevamMi">Satış Devam Mı?</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="mt-3 d-flex justify-content-between">
+			<div class="form-group">
+				@if (Model.Album == null)
+				{
+					<input type="submit" value="Kaydet" class="btn btn-primary" asp-action="AlbumEkleDuzenle" />
+				}
+				else
+				{
+					<input type="submit" value="Güncelle" class="btn btn-warning" asp-action="AlbumEkleDuzenle" />
+				}
+			</div>
+
+			<a asp-action="Liste" class="btn btn-secondary d-inline-flex">Listeye Dön</a>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

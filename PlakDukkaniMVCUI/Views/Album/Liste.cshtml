@@ -1,0 +1,94 @@
+﻿@model AlbumListeModelView
+
+<h1 class="text-center">Albüm Listesi</h1>
+<hr />
+
+@if (TempData["mesaj"] != null)
+{
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		@TempData["mesaj"]
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+
+<div class="container form-container">
+	<div class="d-flex mb-3">
+		<div class="dropdown p-2">
+			<button class="btn btn-secondary dropdown-toggle mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+				Filtre
+			</button>
+			<ul class="dropdown-menu">
+				@foreach (var item in Model.Filtre)
+				{
+					<li><a class="dropdown-item" data-value="@item.Value">@item.Text</a></li>
+				}
+			</ul>
+		</div>
+		<div class="p-2">
+			<input type="text" id="albumFiltre" class="form-control " />
+		</div>
+		<div class="ms-auto p-2">
+			<p>
+				<a asp-action="AlbumEkleDuzenle" class="btn btn-success float-end mb-2">Yeni Albüm Kaydet</a>
+			</p>
+		</div>
+	</div>
+
+	<div id="partialContent">
+		@if (Model.AlbumDtos == null)
+		{
+			<partial name="~/Views/Album/PartialViews/_AlbumListe.cshtml" model="Model" />
+		}
+		else
+		{
+			<partial name="~/Views/Album/PartialViews/AlbumFiltreliListe.cshtml" model="Model" />
+		}
+	</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+	$(document).ready(function () {
+		$('#albumFiltre').on('input', function () {
+			var filterText = $('#albumFiltre').val();
+			if (filterText.length > 2) {
+				$.ajax({
+					url: '/Album/AlbumFiltreliListe', // Controller ve Action adınıza göre ayarlayın
+					type: 'POST',
+					data: { filterText: filterText },
+					success: function (data) {
+
+						$('#partialContent').html(data);
+					}
+				});
+			}
+			else if (filterText.length == 0)
+			{
+				$.ajax({
+					url: '/Album/AlbumFiltreliListe', // Controller ve Action adınıza göre ayarlayın
+					type: 'POST',
+					data: { filterValue: 0 },
+					success: function (data) {
+
+						$('#partialContent').html(data);
+					}
+				});
+			}
+			});
+
+		$('.dropdown-item').click(function (e) {
+			var filterValue = $(this).data('value'); // Tıklanan öğenin "data-value" değerini alın
+			$.ajax({
+				url: '/Album/AlbumFiltreliListe', // Controller ve Action adınıza göre ayarlayın
+				type: 'POST',
+				data: { filterValue: filterValue },
+				success: function (data) {
+
+					$('#partialContent').html(data);
+				}
+			});
+		});
+	});
+
+</script>
